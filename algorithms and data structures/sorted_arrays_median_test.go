@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -37,13 +36,5 @@ func TestBatchTestFindMedian(t *testing.T) {
 			t.Errorf("got %f but was expecting %f", output, test.expected)
 		}
 	}
-
-}
-
-func TestRemove(t *testing.T) {
-
-	arr1 := []int{1,2,3,4}
-
-	fmt.Println(arr1[4:])
 
 }
