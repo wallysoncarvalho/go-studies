@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestNetworkDelayTime(t *testing.T) {
 	mapping := [][]int { {2,1,1}, {2,3,1}, {3,4,1} }
