@@ -16,6 +16,13 @@ func TestMeuOvo(t *testing.T) {
 	divResult := valor.Div(div)
 
 
+	var costs = make(map[byte]int)
+
+	_, ok := costs['C']
+
+	fmt.Println("has value ", ok)
+
+
 	var no1 byte = 'A'
 	//var no2 byte = 'B'
 

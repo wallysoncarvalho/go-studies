@@ -1,5 +1,7 @@
 package djikstra
 
+import "fmt"
+
 type Node struct {
 	Value byte
 	Edges []Edge
@@ -12,6 +14,19 @@ type Edge struct {
 
 type Graph struct {
 	Nodes []Node
+}
+
+func (g Graph) getNodeByValue(value byte) *Node {
+
+	for _, node := range g.Nodes {
+
+		if node.Value == value {
+			return &node
+		}
+
+	}
+
+	return nil
 }
 
 type Stack []byte
@@ -39,34 +54,48 @@ func dijkstra(graph Graph) {
 
 	var visited = make(map[byte]bool)
 
-	//visited['A'] = true
+	unvisited := Stack{'S'}
 
-	unvisited := Stack{'A'}
+	var costs = make(map[byte]int)
 
-	var teste := make([byte]map[byte]int)
+	var costFrom = make(map[byte]byte)
+	
+	for !unvisited.IsEmpty() {
+		currentNodeValue := unvisited.Pop()
 
-	for unvisited.IsEmpty() {
+		currentNode := graph.getNodeByValue(currentNodeValue)
 
-		currentNode := unvisited.Pop()
+		for _, edge := range currentNode.Edges {
+
+			value, ok := costs[edge.To]
 
 
-		for _, edge := range graph.Nodes[currentNode].Edges {
+			if !ok || value > edge.Cost {
 
-			from, cost := teste[edge.To]
+				costs[edge.To] = edge.Cost
+				
+				costFrom[edge.To] = currentNodeValue
+			}
+
+			if _, wasVisited := visited[edge.To]; !wasVisited {
+				unvisited.Push(edge.To)
+			}
 			
-
-			
-
 		}
 
-
-		
-		
+		visited[currentNodeValue] = true
 
 	}
-	
 
+	for key, value := range costs {
+		fmt.Printf("%c: %d ", key, value)
+	}
 
-	
+	fmt.Println()
+
+	for key, value := range costFrom {
+		fmt.Printf("%c: %c ", key, value)
+	}
 
 }
+
